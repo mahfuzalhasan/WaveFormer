@@ -4,9 +4,9 @@ WaveFormer: A 3D Transformer with Wavelet-Driven Feature Representation for Effi
 
 [https://arxiv.org/abs/2503.23764](https://arxiv.org/abs/2503.23764)
 
-![](images/fig1.pdf)
+![](images/fig1.jpg)
 
-![](images/fig2.pdf)
+![](images/fig2.jpg)
 
 ## Contact 
 If you have any questions about our project, please feel free to contact us by email at zxing565@connect.hkust-gz.edu.cn or via WeChat at 18340097191.
