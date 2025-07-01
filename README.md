@@ -23,77 +23,53 @@ git clone https://github.com/mahfuzalhasan/WaveFormer.git
 
 ## Preprocessing, training, testing, inference, and metrics computation
 
-### Data downloading 
+### Data downloading and Preprocessing
 
 Data is from [https://arxiv.org/abs/2305.17033](https://arxiv.org/abs/2305.17033)
 
-Download from Baidu Disk  [https://pan.baidu.com/s/1C0FUHdDtWNaYWLtDDP9TnA?pwd=ty22提取码ty22](https://pan.baidu.com/s/1C0FUHdDtWNaYWLtDDP9TnA?pwd=ty22) 
+We followed data download link and preprocessing steps from SegMamba repo: [https://github.com/ge-xing/SegMamba](https://github.com/ge-xing/SegMamba) 
 
-Download from OneDrive [https://hkustgz-my.sharepoint.com/:f:/g/personal/zxing565_connect_hkust-gz_edu_cn/EqqaINbHRxREuIj0XGicY2EBv8hjwEFKgFOhF_Ub0mvENw?e=yTpE9B](https://hkustgz-my.sharepoint.com/:f:/g/personal/zxing565_connect_hkust-gz_edu_cn/EqqaINbHRxREuIj0XGicY2EBv8hjwEFKgFOhF_Ub0mvENw?e=yTpE9B)
+### Data split and Config
 
-### Preprocessing
-In my setting, the data directory of BraTS2023 is : "./data/raw_data/BraTS2023/ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData/"
+We have provided our train and validation split inside `data_list/default_split`. Test split is acquired from Segmamba author and provided in `data_list/test_list.pkl` file.
 
-First, we need to run the rename process.
+Set necessary path variables in the `config.yaml` file. By default, we have provided the paths and other parameters used in our training setup.
 
-```bash 
-python 1_rename_mri_data.py
-```
 
-Then, we need to run the pre-processing code to do resample, normalization, and crop processes.
-
-```bash
-python 2_preprocessing_mri.py
-```
-
-After pre-processing, the data structure will be in this format:
-
-![](images/data_structure.jpg)
 ### Training 
 
-When the pre-processing process is done, we can train our model.
-
-We mainly use the pre-processde data from last step: **data_dir = "./data/fullres/train"**
+We used the pre-processed data from the preprocessing step: **data_dir = "./data/fullres/train"** in `config.yaml`
 
 
 ```bash 
 python 3_train.py
 ```
 
-The training logs and checkpoints are saved in:
-**logdir = f"./logs/segmamba"**
-
-
-
+The training logs and checkpoints are saved in: **logdir = f"./logs/{model_name}"**. Set **model_name** in the `config.yaml` file
 
 ### Inference 
-
-When we have trained our models, we can inference all the data in testing set.
+Once the model is trained, run the best model on the test set.
 
 ```bash 
 python 4_predict.py
 ```
 
-When this process is done, the prediction cases will be put in this path:
-**save_path = "./prediction_results/segmamba"**
+The prediction cases will be saved in
+**save_path = "./prediction_results/{model_name}"** folder.
 
 ### Metrics computation
-We can obtain the Dice score and HD95 on each segmentation target (WT, TC, ET for BraTS2023 dataset) using this code:
+Run the following script to obtain the Dice score and HD95 on each segmentation target (WT, TC, ET for BraTS2023 dataset)
 
 ```bash
-python 5_compute_metrics.py --pred_name="segmamba"
+python 5_compute_metrics.py
 ```
 
-
-
 ## Acknowledgement
-Many thanks for these repos for their great contribution!
+Many thanks for these repos for their great contribution! Special thanks goes to the author of Segmamba Papers to provide us with the necessary data and split. Thank you to the National Research Platform ([NRP](https://portal.nrp.ai/)) for providing us with necessary computation resources.
+
+[https://github.com/ge-xing/SegMamba](https://github.com/ge-xing/SegMamba)
 
 [https://github.com/MIC-DKFZ/nnUNet](https://github.com/MIC-DKFZ/nnUNet)
 
 [https://github.com/Project-MONAI/MONAI](https://github.com/Project-MONAI/MONAI)
-
-[https://github.com/hustvl/Vim](https://github.com/hustvl/Vim)
-
-[https://github.com/bowang-lab/U-Mamba](https://github.com/bowang-lab/U-Mamba)
 

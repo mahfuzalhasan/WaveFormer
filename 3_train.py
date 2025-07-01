@@ -163,13 +163,13 @@ class BraTSTrainer(Trainer):
             Logger.info(f"New best model! Mean dice improved to: {mean_dice:.4f}")
             save_new_model_and_delete_last(
                 self.model, self.optimizer, mean_dice, self.epoch,
-                os.path.join(config.logdir, f"best_model_{mean_dice:.4f}.pth"),
+                os.path.join(self.logdir, f"best_model_{mean_dice:.4f}.pth"),
                 delete_symbol="best_model"
             )
         
         save_new_model_and_delete_last(
             self.model, self.optimizer, mean_dice, self.epoch,
-            os.path.join(config.logdir, f"final_model_{mean_dice:.4f}.pth"),
+            os.path.join(self.logdir, f"final_model_{mean_dice:.4f}.pth"),
             delete_symbol="final_model"
         )
         
