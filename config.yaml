@@ -1,0 +1,77 @@
+# Configuration for training
+
+data_dir: "./data/fullres/train"
+logdir: "./logs/"
+raw_data_dir: "./data/raw_data/BraTS2023/ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData/"
+model_name: "residual_up_multi_level"
+data_list_path: "./data_list"
+split_path: "default_split"  # Path to the split file
+env: "pytorch"    # pytorch --> for single gpu training
+max_epoch: 1000
+batch_size: 2
+val_every: 2
+num_gpus: 1
+device: "cuda:0"
+train_process: 12
+master_port: 17759
+training_script: "train.py"
+roi_size: [128, 128, 128]
+
+# Prediction-specific configuration
+prediction:
+  best_model_id: "best_model_0.9236.pth"
+  patch_size: [128, 128, 128]
+  sw_batch_size: 2
+  overlap: 0.5
+  mirror_axes: [0, 1, 2]
+  raw_spacing: [1, 1, 1]
+  prediction_save: "./prediction_results"
+  results_root: "prediction_results"
+
+# Logging configuration
+logging:
+  enabled: true
+  write_to_file: true
+  write_to_console: true
+  log_file: "./logs/training.log"
+  log_level_file: "debug"
+  log_level_console: "info"
+  log_format: "%(asctime)s %(levelname)-7s [%(filename)s:%(lineno)d] %(message)s"
+  rewrite_log: false
+
+# Network configuration - Simplified to match original code
+network:
+  # Model architecture
+  model_type: "Waveformer"
+  
+  # Input/Output configuration
+  in_channels: 4
+  out_channels: 4
+  img_size: [128, 128, 128]
+  patch_size: 2
+  spatial_dims: 3
+  
+  # Model initialization parameters
+  hidden_size: 768
+  layer_scale_init_value: 1e-6
+  conv_block: true
+  res_block: true
+  use_checkpoint: false
+  
+  # Transformer configuration - This is the main configuration
+  transformer:
+    embed_dims: [48, 96, 192, 384]
+    depths: [2, 2, 2, 2]
+    num_heads: [3, 6, 12, 24]
+    mlp_ratios: [4, 4, 4, 4]
+    decom_levels: [3, 2, 1, 0]
+    multi_scale_attention: true
+    hf_refinement: false
+    qkv_bias: true
+    qk_scale: null
+    drop_rate: 0.0
+    attn_drop_rate: 0.0
+    drop_path_rate: 0.1
+    patch_norm: false
+    norm_layer: "LayerNorm"
+    norm_eps: 1e-6 
