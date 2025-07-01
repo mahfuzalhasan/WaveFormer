@@ -4,47 +4,21 @@ WaveFormer: A 3D Transformer with Wavelet-Driven Feature Representation for Effi
 
 [https://arxiv.org/abs/2503.23764](https://arxiv.org/abs/2503.23764)
 
-![](images/fig1.jpg)
+![Overall Network Architecture](images/fig1.jpg)
 
-![](images/fig2.jpg)
+![WaveFormer Block Architecture](images/fig2.jpg)
+
+![Results on BraTS2023 Dataset](images/fig3.jpg)
 
 ## Contact 
-If you have any questions about our project, please feel free to contact us by email at zxing565@connect.hkust-gz.edu.cn or via WeChat at 18340097191.
+If you have any questions about our project, please feel free to contact us by email at mdmahfuzalhasan@ufl.edu.
 
 ## Environment install
 Clone this repository and navigate to the root directory of the project.
 
 ```bash
-git clone https://github.com/ge-xing/SegMamba.git
+git clone https://github.com/mahfuzalhasan/WaveFormer.git
 
-cd SegMamba
-```
-### Install causal-conv1d
-
-```bash
-cd causal-conv1d
-
-python setup.py install
-```
-
-### Install mamba
-
-```bash
-cd mamba
-
-python setup.py install
-```
-
-### Install monai 
-
-```bash
-pip install monai
-```
-
-## Simple test
-
-```bash
-python 0_inference.py
 ```
 
 ## Preprocessing, training, testing, inference, and metrics computation
