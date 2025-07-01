@@ -81,3 +81,16 @@ Many thanks for these repos for their great contribution! Special thanks goes to
 
 [https://github.com/Project-MONAI/MONAI](https://github.com/Project-MONAI/MONAI)
 
+### Citation
+
+```bash
+@misc{hasan2025waveformer3dtransformerwaveletdriven,
+      title={WaveFormer: A 3D Transformer with Wavelet-Driven Feature Representation for Efficient Medical Image Segmentation}, 
+      author={Md Mahfuz Al Hasan and Mahdi Zaman and Abdul Jawad and Alberto Santamaria-Pang and Ho Hin Lee and Ivan Tarapov and Kyle See and Md Shah Imran and Antika Roy and Yaser Pourmohammadi Fallah and Navid Asadizanjani and Reza Forghani},
+      year={2025},
+      eprint={2503.23764},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2503.23764}, 
+}
+```
