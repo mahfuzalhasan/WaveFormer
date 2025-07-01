@@ -12,13 +12,22 @@ Pre-print: [https://arxiv.org/abs/2503.23764](https://arxiv.org/abs/2503.23764)
 ## Contact 
 If you have any questions about our project, please feel free to contact us by email at mdmahfuzalhasan@ufl.edu.
 
-## Environment install
+## Environment Setup
 Clone this repository and navigate to the root directory of the project.
 
 ```bash
 git clone https://github.com/mahfuzalhasan/WaveFormer.git
 
 ```
+
+Run `pip install -r requirements.txt` to setup dependencies in your virtual enviroment.
+
+Or,
+
+Run `conda env create -f environment.yaml` to generate conda enviroment.
+
+Alternatively, you can create pip enviroment using the provided Pipfile.
+
 
 ## Preprocessing, training, testing, inference, and metrics computation
 
