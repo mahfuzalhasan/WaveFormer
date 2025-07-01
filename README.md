@@ -1,19 +1,12 @@
 # WaveFormer on BraTS
 
------------ [ everything below this is cloned from SegMamba. we will update the code for our current work later  ] -----------
+WaveFormer: A 3D Transformer with Wavelet-Driven Feature Representation for Efficient Medical Image Segmentation
 
-**Now we have open-sourced the pre-processing, training, inference, and metrics computation codes.**
+[https://arxiv.org/abs/2503.23764](https://arxiv.org/abs/2503.23764)
 
-SegMamba: Long-range Sequential Modeling Mamba For 3D Medical Image Segmentation
+![](images/fig1.pdf)
 
-[https://arxiv.org/abs/2401.13560](https://arxiv.org/abs/2401.13560)
-
-![](images/method_figure.jpg)
-
-![](images/modules.jpg)
-
-Our advantage in speed and memory.
-![](images/segmamba_ablation.jpg)
+![](images/fig2.pdf)
 
 ## Contact 
 If you have any questions about our project, please feel free to contact us by email at zxing565@connect.hkust-gz.edu.cn or via WeChat at 18340097191.
