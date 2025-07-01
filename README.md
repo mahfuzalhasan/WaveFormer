@@ -47,7 +47,7 @@ python 3_train.py
 The training logs and checkpoints are saved in: **logdir = f"./logs/{model_name}"**. Set **model_name** in the `config.yaml` file
 
 ### Inference 
-Once the model is trained, run the best model on the test set.
+Once the model is trained, run inference with the best model on the test set. Best model should be in **best_model_path = f"./logs/{model_name}/best_model.pth"**
 
 ```bash 
 python 4_predict.py
