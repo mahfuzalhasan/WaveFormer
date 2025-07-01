@@ -1,8 +1,7 @@
-# WaveFormer on BraTS
+# WaveFormer: A 3D Transformer with Wavelet-Driven Feature Representation for Efficient Medical Image Segmentation
 
-WaveFormer: A 3D Transformer with Wavelet-Driven Feature Representation for Efficient Medical Image Segmentation
 
-[https://arxiv.org/abs/2503.23764](https://arxiv.org/abs/2503.23764)
+Pre-print: [https://arxiv.org/abs/2503.23764](https://arxiv.org/abs/2503.23764)
 
 ![Overall Network Architecture](images/fig1.jpg)
 
