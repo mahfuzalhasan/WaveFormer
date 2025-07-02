@@ -39,13 +39,13 @@ def convert_labels(labels):
 
 if __name__ == "__main__":
     data_dir = config.data_dir
-    logdir = config['logdir']
-    data_list_path = config['data_list_path']
-    raw_data_dir = config['raw_data_dir']
-    results_root = config['prediction']['results_root']
-    model_name = config['model_name']
-    split_path = config['split_path']
-    train_ds, val_ds, test_ds = get_train_val_test_loader_from_train(data_dir, data_list_path, split_path, test=True)
+    logdir = config.logdir
+    data_list_path = config.data_list_path
+    raw_data_dir = config.raw_data_dir
+    results_root = config.prediction.results_root
+    model_name = config.model_name
+    split_path = config.split_path
+    _, _, test_ds = get_train_val_test_loader_from_train(data_dir, data_list_path, split_path, test=True)
 
     all_results = np.zeros((250,3,2))
 
