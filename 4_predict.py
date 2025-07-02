@@ -34,9 +34,11 @@ from utils.network_config import get_network_config
 
 set_determinism(123)
 
-# Setup logging
-setup_logging(config)
-Logger = get_logger()
+def ensure_dir(path: str) -> None:
+    """Create directory if it does not exist."""
+    if not os.path.exists(path):
+        os.makedirs(path)
+        print(f"Created directory: {path}")
 
 
 def load_config(config_path: str = "config.yaml") -> dict:
@@ -77,8 +79,10 @@ class BraTSPredictor(Trainer):
         setup_logging(config, train=False)
         self.logger = get_logger()
         
-        # Set deterministic behavior
-        set_determinism(123)
+        # Ensure directories exist
+        logdir = os.path.join(config.logdir, config.model_name)
+        ensure_dir(logdir)
+        ensure_dir(config.data_list_path)
         
         # Initialize parent class
         super().__init__(
@@ -88,7 +92,7 @@ class BraTSPredictor(Trainer):
             device=config['device'],
             val_every=config['val_every'],
             num_gpus=config['num_gpus'],
-            logdir=config['logdir'],
+            logdir=logdir,
             master_port=config.get('master_port', 17751),
             training_script=__file__
         )
@@ -254,7 +258,7 @@ class BraTSPredictor(Trainer):
         model_output = predictor.predict_noncrop_probability(model_output, properties)
         predictor.save_to_nii(
             model_output,
-            raw_spacing=self.config['raw_spacing'],
+            raw_spacing=self.config['prediction']['raw_spacing'],
             case_name=properties['name'][0],
             save_dir=save_path
         )
@@ -340,6 +344,7 @@ def main():
     
     # Load configuration --> user can load custom config file for prediction
     config = load_config(args.config)
+    
 
     # Override split path if provided
     if args.split_path:
