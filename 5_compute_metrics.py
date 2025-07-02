@@ -38,7 +38,7 @@ def convert_labels(labels):
 
 
 if __name__ == "__main__":
-    data_dir = config['data_dir']
+    data_dir = config.data_dir
     logdir = config['logdir']
     data_list_path = config['data_list_path']
     raw_data_dir = config['raw_data_dir']
