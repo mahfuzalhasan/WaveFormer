@@ -75,14 +75,14 @@ class BraTSPredictor(Trainer):
             config: Configuration dictionary
             args: Command line arguments
         """
-        # Setup logging
-        setup_logging(config, train=False)
-        self.logger = get_logger()
-        
-        # Ensure directories exist
+        # Ensure log directory exists
         logdir = os.path.join(config.logdir, config.model_name)
         ensure_dir(logdir)
         ensure_dir(config.data_list_path)
+
+        # Setup logging
+        setup_logging(config, train=False)
+        self.logger = get_logger()
         
         # Initialize parent class
         super().__init__(
@@ -142,7 +142,7 @@ class BraTSPredictor(Trainer):
         # Add additional configuration
         model_kwargs['network_config'] = network_config.config
         
-        Logger.info(f"Creating model with parameters: {model_kwargs}")
+        self.logger.info(f"Creating model with parameters: {model_kwargs}")
         
         return create_waveformer(model_kwargs)
     
