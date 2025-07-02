@@ -96,10 +96,10 @@ class BraTSPredictor(Trainer):
         # Store configuration
         self.config = config
         self.args = args
-        self.patch_size = config['prediction']['patch_size']
+        self.patch_size = self.config['prediction']['patch_size']
         self.augmentation = False
         
-        self.logger.info(f"BraTS Predictor initialized with device: {config['device']}")
+        self.logger.info(f"BraTS Predictor initialized with device: {self.config['device']}")
 
         # self.model, self.predictor, self.save_path = self.define_model_waveformer()
     
