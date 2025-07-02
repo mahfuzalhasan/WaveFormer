@@ -76,9 +76,9 @@ class BraTSPredictor(Trainer):
             args: Command line arguments
         """
         # Ensure log directory exists
-        logdir = os.path.join(config.logdir, config.model_name)
+        logdir = os.path.join(config['logdir'], config['model_name'])
         ensure_dir(logdir)
-        ensure_dir(config.data_list_path)
+        ensure_dir(config['data_list_path'])
 
         # Setup logging
         setup_logging(config, train=False)
@@ -344,12 +344,6 @@ def main():
     
     # Load configuration --> user can load custom config file for prediction
     config = load_config(args.config)
-    print(config)
-    print('#############')
-    print(config['logdir'])
-    print(config.logdir)
-    exit()
-    
 
     # Override split path if provided
     if args.split_path:
