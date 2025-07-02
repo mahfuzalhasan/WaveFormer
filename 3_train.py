@@ -55,6 +55,7 @@ class BraTSTrainer(Trainer):
         
         # Initialize model with configuration
         self.model = self._create_model(network_config)
+        self.logdir = logdir
         
         # Store configuration for later use
         self.network_config = network_config
@@ -182,7 +183,7 @@ class BraTSTrainer(Trainer):
             }
             if self.scheduler is not None:
                 save_state['lr_scheduler'] = self.scheduler.state_dict()
-            checkpoint_path = os.path.join(config.logdir, f"tmp_model_ep{self.epoch}_{mean_dice:.4f}.pth")
+            checkpoint_path = os.path.join(self.logdir, f"tmp_model_ep{self.epoch}_{mean_dice:.4f}.pth")
             torch.save(save_state, checkpoint_path)
             Logger.info(f"Checkpoint saved at epoch {self.epoch}: {checkpoint_path}")
 

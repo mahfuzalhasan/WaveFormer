@@ -9,7 +9,7 @@ import os
 from lib.utils.tools.logger import Logger
 
 
-def setup_logging(config):
+def setup_logging(config, train=True):
     """
     Setup logging based on configuration.
     
@@ -38,7 +38,13 @@ def setup_logging(config):
         stdout_level = logging_config.get('log_level_console', 'info')
     
     # Get log file path
-    log_file = logging_config.get('log_file', './logs/training.log')
+    # log_file =  f"./logs/{config['model_name']}/training.log"
+    if train:
+        name = 'training.log'
+    else:
+        name = 'inference.log'
+    
+    log_file = os.path.join(config.logdir, config.model_name, name)
     
     # Ensure log directory exists
     log_dir = os.path.dirname(log_file)

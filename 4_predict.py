@@ -74,7 +74,7 @@ class BraTSPredictor(Trainer):
             args: Command line arguments
         """
         # Setup logging
-        setup_logging(config)
+        setup_logging(config, train=False)
         self.logger = get_logger()
         
         # Set deterministic behavior
@@ -101,7 +101,7 @@ class BraTSPredictor(Trainer):
         
         self.logger.info(f"BraTS Predictor initialized with device: {config['device']}")
 
-        self.model, self.predictor, self.save_path = self.define_model_segmamba()
+        # self.model, self.predictor, self.save_path = self.define_model_segmamba()
     
     def convert_labels(self, labels: torch.Tensor) -> torch.Tensor:
         """
@@ -322,6 +322,7 @@ def parse_arguments() -> argparse.Namespace:
     #     help="Enable Nautilus environment"
     # )
 
+    # user can use custom split path
     parser.add_argument(
         "--split-path", 
         type=str, 
@@ -337,12 +338,9 @@ def main():
     # Parse arguments
     args = parse_arguments()
     
-    # Load configuration
+    # Load configuration --> user can load custom config file for prediction
     config = load_config(args.config)
-    
-    # Setup prediction configuration
-    # config = setup_prediction_config(config, args)
-    
+
     # Override split path if provided
     if args.split_path:
         config['split_path'] = args.split_path
@@ -360,7 +358,7 @@ def main():
     
     # Run prediction
     predictor.logger.info("Starting prediction on test dataset...")
-    predictor.validation_single_gpu(test_ds)
+    predictor.validation_single_gpu(test_ds)                        # batch size is 1 for prediction. set internally here.
     predictor.logger.info("Prediction completed successfully.")
 
 
