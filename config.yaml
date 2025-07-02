@@ -6,11 +6,11 @@ raw_data_dir: "./data/raw_data/BraTS2023/ASNR-MICCAI-BraTS2023-GLI-Challenge-Tra
 model_name: "multiscale_attention"
 data_list_path: "./data_list"
 split_path: "default_split"  # Path to the split file -> train, val
-env: "DDP"    # pytorch --> for single gpu training
+env: "pytorch"    # pytorch --> for single gpu training
 max_epoch: 1000
-batch_size: 4
+batch_size: 4   # Validation --> batch size=1 is set inside validation_single_gpu()
 val_every: 2
-num_gpus: 2
+num_gpus: 1     # set > 1 for distributed training
 device: "cuda:0"
 train_process: 12
 master_port: 17759
