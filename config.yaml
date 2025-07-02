@@ -19,7 +19,7 @@ roi_size: [128, 128, 128]
 
 # Prediction-specific configuration
 prediction:
-  best_model_id: "best_model_0.9236.pth"
+  best_model_id: "best_model_multiscale.pth"
   patch_size: [128, 128, 128]
   sw_batch_size: 2
   overlap: 0.5

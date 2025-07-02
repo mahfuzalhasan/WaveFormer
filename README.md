@@ -58,7 +58,7 @@ The training logs and checkpoints are saved in: **logdir = f"./logs/{model_name}
 ### Inference 
 Once the model is trained, run inference with the best model on the test set. Best model should be in **best_model_path = f"./logs/{model_name}/best_model.pth"**
 
-Our best model with multiscale attention and no hf refinement module can be found here: [best_model_BraTS](https://drive.google.com/file/d/1nrUTVEwwedpb7FkI0ahL8biLykCp5J1x/view?usp=sharing). You can keep the model in this path: **f"./logs/{model_name}/"**. Set the **model_name** in config file.  
+Our best model with multiscale attention and no hf refinement module can be found here: [best_model_BraTS](https://drive.google.com/file/d/1nrUTVEwwedpb7FkI0ahL8biLykCp5J1x/view?usp=sharing). You can keep the model in this path: **f"./logs/{model_name}/{best_model_id}"**. This is set inside define_model_waveformer() in the `predict.py` file. Set the **model_name** and **best_model_id** in the config.yaml file.  
 
 The run:
 ```bash 

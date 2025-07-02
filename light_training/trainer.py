@@ -218,7 +218,7 @@ class Trainer:
             print(f"single gpu model not support the ddp")
             exit(0)
         val_loader = DataLoader(val_dataset, batch_size=1, shuffle=False, pin_memory=True)
-        model, predictor, save_path = self.define_model_segmamba()
+        model, predictor, save_path = self.define_model_waveformer()
         # if model is not None:
         #     model.to(self.device)
         #     model.eval()
@@ -486,7 +486,7 @@ class Trainer:
     def validation_step(self, batch):
         raise NotImplementedError
     
-    def define_model_segmamba(self):
+    def define_model_waveformer(self):
         raise NotImplementedError
 
     def validation_end(self, mean_val_outputs, val_outputs):

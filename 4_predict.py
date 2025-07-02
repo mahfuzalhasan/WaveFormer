@@ -101,7 +101,7 @@ class BraTSPredictor(Trainer):
         
         self.logger.info(f"BraTS Predictor initialized with device: {config['device']}")
 
-        # self.model, self.predictor, self.save_path = self.define_model_segmamba()
+        # self.model, self.predictor, self.save_path = self.define_model_waveformer()
     
     def convert_labels(self, labels: torch.Tensor) -> torch.Tensor:
         """
@@ -159,7 +159,7 @@ class BraTSPredictor(Trainer):
         
         return image, label, properties
     
-    def define_model_segmamba(self) -> tuple:
+    def define_model_waveformer(self) -> tuple:
         """
         Define and load the Waveformer model.
         
