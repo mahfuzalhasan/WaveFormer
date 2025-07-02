@@ -295,10 +295,6 @@ def get_train_val_test_loader_from_train(data_dir, save_path, split_path, test=F
     # if nautilus:
     #     train_datalist = [path.replace('./data', '/project') for path in train_datalist]
     #     val_datalist = [path.replace('./data', '/project') for path in val_datalist]
-    # if hpg:
-    #     train_datalist = [path.replace('/project', './data') for path in train_datalist]
-    #     val_datalist = [path.replace('/project', './data') for path in val_datalist]
-
     print(f"training data is {len(train_datalist)}")
     print(f"validation data is {len(val_datalist)}")
     print(f"test data is {len(test_datalist)}")
