@@ -64,9 +64,9 @@ network:
     depths: [2, 2, 2, 2]
     num_heads: [3, 6, 12, 24]
     mlp_ratios: [4, 4, 4, 4]
-    decom_levels: [3, 2, 1, 0]
-    multi_scale_attention: true
-    hf_refinement: false
+    decom_levels: [3, 2, 1, 0]    # decomposition levels for stage 1, 2, 3 and 4 respectively.
+    multi_scale_attention: true   # enable multi-scale attention
+    hf_refinement: false          # use of high-frequency refinement
     qkv_bias: true
     qk_scale: null
     drop_rate: 0.0
