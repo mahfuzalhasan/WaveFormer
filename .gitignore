@@ -25,7 +25,6 @@ prediction_results/*
 Config/*
 *.slurm
 slurm_logs*/
-*.txt
 backup/*
 playground/*.png
 nautilus/*.yaml
