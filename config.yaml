@@ -33,7 +33,7 @@ logging:
   enabled: true
   write_to_file: true
   write_to_console: true
-  log_file: "./logs/training.log"
+  log_file: "./logs/training.log"   # override --> inside logger_setup.py
   log_level_file: "debug"
   log_level_console: "info"
   log_format: "%(asctime)s %(levelname)-7s [%(filename)s:%(lineno)d] %(message)s"
