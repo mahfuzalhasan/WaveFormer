@@ -344,6 +344,8 @@ def main():
     
     # Load configuration --> user can load custom config file for prediction
     config = load_config(args.config)
+    print(config)
+    exit()
     
 
     # Override split path if provided
