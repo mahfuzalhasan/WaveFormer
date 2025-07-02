@@ -3,7 +3,7 @@
 data_dir: "./data/fullres/train"
 logdir: "./logs/"
 raw_data_dir: "./data/raw_data/BraTS2023/ASNR-MICCAI-BraTS2023-GLI-Challenge-TrainingData/"
-model_name: "residual_up_multi_level"
+model_name: "multiscale_attention"
 data_list_path: "./data_list"
 split_path: "default_split"  # Path to the split file -> train, val
 env: "DDP"    # pytorch --> for single gpu training
