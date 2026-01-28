@@ -355,6 +355,7 @@ if __name__ == "__main__":
         num_classes=4,
         in_chans=C,
         embed_dims=[48, 96, 192, 384],
+        decom_levels = [5,4,3,2],
         depths=[2, 2, 2, 2],
         num_heads=[3, 6, 12, 24],
         multi_scale_attention = False,
