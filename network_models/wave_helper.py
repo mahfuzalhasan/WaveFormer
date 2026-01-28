@@ -22,9 +22,9 @@ sys.path.append(parent_dir)
 model_dir = os.path.abspath(os.path.join(parent_dir, os.pardir))
 sys.path.append(model_dir)
 
-from .attention import Attention
+from attention import Attention
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
-from .attention import Attention
+# from .attention import Attention
 # from configs.config_imagenet import config
 # from utils.logger import get_logger
 
@@ -517,6 +517,7 @@ class Block(nn.Module):
         shortcut = x
         x = self.norm1(x)
         x = x.view(B, D, H, W, C)  # Added to match original implementation
+        print(f'original x:{x.shape}')
         
         # DWT downsampling for level > 0 (matches original)
         if self.level > 0:
@@ -524,12 +525,14 @@ class Block(nn.Module):
             x, x_h = self.dwt_downsamples(x, self.level)
             x = x.permute(0, 2, 3, 4, 1).contiguous()  # B, D1, H1, W1, C
         
+        print(f'DWT: {x.shape}')
         # Window partitioning for attention
         output_size = (x.shape[1], x.shape[2], x.shape[3])
         nW = (output_size[0]//self.window_size) * (output_size[1]//self.window_size) * (output_size[2]//self.window_size)
         
         x_windows = self.window_partition(x, self.window_size)
         x_windows = x_windows.view(-1, self.window_size * self.window_size * self.window_size, C)
+        print(f'x windows:{x_windows.shape}')
         
         # Apply attention
         attn_windows = self.attn(x_windows)

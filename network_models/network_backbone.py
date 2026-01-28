@@ -27,9 +27,9 @@ from monai.networks.blocks.dynunet_block import UnetOutBlock, get_conv_layer
 from monai.networks.blocks.unetr_block import UnetrBasicBlock, UnetrUpBlock
 
 from lib.models.tools.module_helper import ModuleHelper
-from .waveformer import MultiscaleTransformer
-from .idwt_upsample import UnetrIDWTBlock
-from .wave_helper import ProjectionUpsample
+from waveformer import MultiscaleTransformer
+from idwt_upsample import UnetrIDWTBlock
+from wave_helper import ProjectionUpsample
 
 
 class ProjectionHead(nn.Module):
@@ -230,8 +230,8 @@ class Waveformer(nn.Module):
             num_heads=self.transformer_config.get('num_heads', self.num_heads),
             drop_path_rate=self.transformer_config.get('drop_path_rate', self.drop_path_rate),
             mlp_ratios=self.transformer_config.get('mlp_ratios', [4, 4, 4, 4]),
-            decom_levels=self.transformer_config.get('decom_levels', [3, 2, 1, 0]),
-            multi_scale_attention=self.transformer_config.get('multi_scale_attention', True),
+            decom_levels=self.transformer_config.get('decom_levels', [4, 3, 2, 1]),
+            multi_scale_attention=self.transformer_config.get('multi_scale_attention', False),
             qkv_bias=True,
             norm_layer=partial(nn.LayerNorm, eps=1e-6),
             attn_drop_rate=0,

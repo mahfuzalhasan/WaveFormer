@@ -30,7 +30,7 @@ from monai.networks.blocks import PatchEmbed
 from monai.utils import optional_import
 rearrange, _ = optional_import("einops", name="rearrange")
 
-from .wave_helper import Block, PatchMerging
+from wave_helper import Block, PatchMerging
 
 
 class MultiscaleTransformer(nn.Module):
@@ -38,7 +38,7 @@ class MultiscaleTransformer(nn.Module):
     
     def __init__(self, img_size=(128, 128, 128), patch_size=2, in_chans=4, num_classes=4, 
                  embed_dims=[48, 96, 192, 384], num_heads=[3, 6, 12, 24], mlp_ratios=[4, 4, 4, 4], 
-                 decom_levels = [3,2,1,0],  multi_scale_attention=True,
+                 decom_levels = [4,3,2,1],  multi_scale_attention=True,
                  qkv_bias=False, qk_scale=None, drop_rate=0., attn_drop_rate=0., drop_path_rate=0., 
                  norm_layer=nn.LayerNorm, patch_norm=False, depths=[2, 2, 2, 2],
                  network_config=None):
@@ -313,8 +313,8 @@ class MultiscaleTransformer(nn.Module):
         x4 = self.downsample_3(x3)
         for blk in self.block4:
             x4 = blk(x4)
-        if isinstance(x4, tuple):
-            x4 = x4[0]
+            if isinstance(x4, tuple):
+                x4 = x4[0]
         x4_out = rearrange(x4, "b d h w c -> b c d h w")
         x4_out = self.proj_out(x4_out, normalize)
         outs.append(x4_out)
@@ -357,11 +357,13 @@ if __name__ == "__main__":
         embed_dims=[48, 96, 192, 384],
         depths=[2, 2, 2, 2],
         num_heads=[3, 6, 12, 24],
+        multi_scale_attention = False,
         drop_path_rate=0.1
     )
     
     # Test forward pass
-    device = 'cuda:1' if torch.cuda.is_available() else 'cpu'
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    print(device)
     rgb = torch.randn(B, C, D, H, W).to(device)
     backbone = backbone.to(device)
     
