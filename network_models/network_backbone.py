@@ -111,7 +111,6 @@ class ChannelCalibration(nn.Module):
         Returns:
             Output tensor of shape (B, in_channels, D, H, W)
         """
-        x = F.adaptive_avg_pool3d(x, self.reduced_shape) + F.adaptive_max_pool3d(x, self.reduced_shape)
         identity = self.residual(x)
 
         # Dimensionality reduction and spatial refinement
@@ -127,7 +126,10 @@ class ChannelCalibration(nn.Module):
         se = se.view(b, c, 1, 1, 1)
         x = x * se
 
-        return self.relu(x + identity)
+        out = self.relu(x + identity)
+        out = F.adaptive_avg_pool3d(out, self.reduced_shape) + F.adaptive_max_pool3d(out, self.reduced_shape)
+
+        return out
 
 
 class Waveformer(nn.Module):
@@ -399,9 +401,10 @@ class Waveformer(nn.Module):
         enc2 = self.encoder3(outs[1])
         enc3 = self.encoder4(outs[2])
 
+        print(f'outs[3] shape: {outs[3].shape}')
         # Channel Calibration
         dec5 = self.encoder10(outs[3])
-        
+
         # Decoder
         dec4 = self.decoder4(dec5, enc3, outs_hf[-1])
         dec3 = self.decoder3(dec5, enc2, outs_hf[-2])
