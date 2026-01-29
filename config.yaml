@@ -64,7 +64,7 @@ network:
     depths: [2, 2, 2, 2]
     num_heads: [3, 6, 12, 24]
     mlp_ratios: [4, 4, 4, 4]
-    decom_levels: [3, 2, 1, 0]    # decomposition levels for stage 1, 2, 3 and 4 respectively.
+    decom_levels: [4, 3, 2, 1]    # decomposition levels for stage 1, 2, 3 and 4 respectively.
     multi_scale_attention: true   # enable multi-scale attention
     hf_refinement: false          # use of high-frequency refinement
     qkv_bias: true
@@ -74,4 +74,5 @@ network:
     drop_path_rate: 0.1
     patch_norm: false
     norm_layer: "LayerNorm"
-    norm_eps: 1e-6 
+    norm_eps: 1e-6
+    lowest_resolution: (4, 4, 4)  # lowest resolution for attention computation

@@ -66,7 +66,7 @@ class ProjectionHead(nn.Module):
 class ChannelCalibration(nn.Module):
     """SENet-style channel calibration with normalization."""
     
-    def __init__(self, in_channels: int = 384, reduction_ratio: int = 4, norm_layer: type = nn.BatchNorm3d):
+    def __init__(self, in_channels: int = 384, reduction_ratio: int = 4, reduced_shape = (4, 4, 4), norm_layer: type = nn.BatchNorm3d):
         """
         Initialize channel calibration module.
         
@@ -76,6 +76,7 @@ class ChannelCalibration(nn.Module):
             norm_layer: Normalization layer type
         """
         super(ChannelCalibration, self).__init__()
+        self.reduced_shape = reduced_shape
         reduced_channels = in_channels // reduction_ratio
 
         # Dimensionality Reduction and Expansion
@@ -110,6 +111,7 @@ class ChannelCalibration(nn.Module):
         Returns:
             Output tensor of shape (B, in_channels, D, H, W)
         """
+        x = F.adaptive_avg_pool3d(x, self.reduced_shape) + F.adaptive_max_pool3d(x, self.reduced_shape)
         identity = self.residual(x)
 
         # Dimensionality reduction and spatial refinement
@@ -285,9 +287,18 @@ class Waveformer(nn.Module):
         # Channel calibration - using hardcoded values like original
         self.encoder10 = ChannelCalibration(
             in_channels=self.feat_size[3],
+            reduced_shape=self.transformer_config.get('lowest_resolution', (4, 4, 4)),
             reduction_ratio=4,
             norm_layer=nn.InstanceNorm3d
         )
+
+        # self.global_attention = MultiHeadSelfAttention(
+        #     dim=self.feat_size[3],
+        #     num_heads=8,
+        #     qkv_bias=True,
+        #     attn_drop=0.0,
+        #     proj_drop=0.0
+        # )
 
     def _init_decoder_blocks(self, norm_name: str, res_block: bool):
         """Initialize decoder blocks with hardcoded values like original."""
@@ -390,7 +401,7 @@ class Waveformer(nn.Module):
 
         # Channel Calibration
         dec5 = self.encoder10(outs[3])
-
+        print(f'after bottleneck layer: {dec5.shape}')
         # Decoder
         dec4 = self.decoder4(dec5, enc3, outs_hf[-1])
         dec3 = self.decoder3(dec5, enc2, outs_hf[-2])

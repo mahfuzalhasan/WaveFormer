@@ -517,7 +517,7 @@ class Block(nn.Module):
         shortcut = x
         x = self.norm1(x)
         x = x.view(B, D, H, W, C)  # Added to match original implementation
-        print(f'original x:{x.shape}')
+        # print(f'original x:{x.shape}')
         
         # DWT downsampling for level > 0 (matches original)
         if self.level > 0:
@@ -532,7 +532,7 @@ class Block(nn.Module):
         
         x_windows = self.window_partition(x, self.window_size)
         x_windows = x_windows.view(-1, self.window_size * self.window_size * self.window_size, C)
-        print(f'x windows:{x_windows.shape}')
+        # print(f'x windows:{x_windows.shape}')
         
         # Apply attention
         attn_windows = self.attn(x_windows)

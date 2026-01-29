@@ -283,15 +283,17 @@ class MultiscaleTransformer(nn.Module):
         
         
         # Stage 1
+        print(f'\n\n ####### input to stage 1: {x0.shape}')
         x1 = rearrange(x0, "b c d h w -> b d h w c")
         for blk in self.block1:
-            x1, x_h = blk(x1, )
+            x1, x_h = blk(x1)
         x1_out = rearrange(x1, "b d h w c -> b c d h w")
         x1_out = self.proj_out(x1_out, normalize)
         outs.append(x1_out)
         outs_hf.append(x_h if x_h is not None else ())
 
         # Stage 2
+        print(f'\n\ninput to stage 2: {x1.shape}')
         x2 = self.downsample_1(x1)
         for blk in self.block2:
             x2, x_h = blk(x2)
@@ -301,6 +303,7 @@ class MultiscaleTransformer(nn.Module):
         outs_hf.append(x_h if x_h is not None else ())
 
         # Stage 3
+        print(f'\n\ninput to stage 3: {x2.shape}')
         x3 = self.downsample_2(x2)
         for blk in self.block3:
             x3, x_h = blk(x3)
@@ -310,14 +313,16 @@ class MultiscaleTransformer(nn.Module):
         outs_hf.append(x_h if x_h is not None else ())
 
         # Stage 4
+        print(f'\n\ninput to stage 4: {x3.shape}')
         x4 = self.downsample_3(x3)
         for blk in self.block4:
-            x4 = blk(x4)
-            if isinstance(x4, tuple):
-                x4 = x4[0]
+            x4, x_h = blk(x4)
+            # if isinstance(x4, tuple):
+            #     x4, x_h = x4[0]
         x4_out = rearrange(x4, "b d h w c -> b c d h w")
         x4_out = self.proj_out(x4_out, normalize)
         outs.append(x4_out)
+        outs_hf.append(x_h if x_h is not None else ())
 
         return outs, outs_hf
 
