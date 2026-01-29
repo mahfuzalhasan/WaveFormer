@@ -401,7 +401,6 @@ class Waveformer(nn.Module):
         enc2 = self.encoder3(outs[1])
         enc3 = self.encoder4(outs[2])
 
-        print(f'outs[3] shape: {outs[3].shape}')
         # Channel Calibration
         dec5 = self.encoder10(outs[3])
 
