@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=brats_waveformer
+#SBATCH --job-name=brats-waveformer
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=mdmahfuzalhasan@ufl.edu
 #SBATCH --account=brain-lab
@@ -11,8 +11,9 @@
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=256gb
 #SBATCH --partition=hpg-b200
-#SBATCH --gpus=gpu:2
+#SBATCH --gres=gpu:2
 #SBATCH --time=24:00:00
+pwd; hostname; date
 
 module load conda
 conda activate miccai
@@ -20,4 +21,5 @@ conda activate miccai
 cd /blue/brain-lab/mdmahfuzalhasan/scripts/WaveFormer
 
 # Execute the Python script
-srun python 3_train.py
+python python 3_train.py
+date
