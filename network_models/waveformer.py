@@ -325,7 +325,7 @@ class MultiscaleTransformer(nn.Module):
         x4_out = rearrange(x4, "b d h w c -> b c d h w")
         x4_out = self.proj_out(x4_out, normalize)
         outs.append(x4_out)
-        outs_hf.append(x_h if x_h is not None else ())
+        # outs_hf.append(x_h if x_h is not None else ())
 
         return outs, outs_hf
 
