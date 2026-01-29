@@ -21,5 +21,5 @@ conda activate miccai
 cd /blue/brain-lab/mdmahfuzalhasan/scripts/WaveFormer
 
 # Execute the Python script
-python python 3_train.py
+python 3_train.py
 date
