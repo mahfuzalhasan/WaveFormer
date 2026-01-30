@@ -12,7 +12,7 @@
 #SBATCH --mem=256gb
 #SBATCH --partition=hpg-b200
 #SBATCH --gres=gpu:2
-#SBATCH --time=24:00:00
+#SBATCH --time=30:00:00
 pwd; hostname; date
 
 module load conda
