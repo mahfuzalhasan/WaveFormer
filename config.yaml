@@ -75,4 +75,4 @@ network:
     patch_norm: false
     norm_layer: "LayerNorm"
     norm_eps: 1e-6
-    lowest_resolution: (4, 4, 4)  # lowest resolution for attention computation
+    lowest_resolution: (2, 2, 2)  # lowest resolution for attention computation
