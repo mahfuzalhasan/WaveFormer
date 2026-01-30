@@ -234,7 +234,7 @@ class Waveformer(nn.Module):
             num_heads=self.transformer_config.get('num_heads', self.num_heads),
             drop_path_rate=self.transformer_config.get('drop_path_rate', self.drop_path_rate),
             mlp_ratios=self.transformer_config.get('mlp_ratios', [4, 4, 4, 4]),
-            decom_levels=self.transformer_config.get('decom_levels', [4, 3, 2, 1]),
+            decom_levels=self.transformer_config.get('decom_levels', [5, 4, 3, 2]),
             multi_scale_attention=self.transformer_config.get('multi_scale_attention', False),
             qkv_bias=True,
             norm_layer=partial(nn.LayerNorm, eps=1e-6),
@@ -289,7 +289,7 @@ class Waveformer(nn.Module):
         # Channel calibration - using hardcoded values like original
         self.encoder10 = ChannelCalibration(
             in_channels=self.feat_size[3],
-            reduced_shape=self.transformer_config.get('lowest_resolution', (4, 4, 4)),
+            reduced_shape=self.transformer_config.get('lowest_resolution', (2, 2, 2)),
             reduction_ratio=4,
             norm_layer=nn.InstanceNorm3d
         )
@@ -403,6 +403,7 @@ class Waveformer(nn.Module):
 
         # Channel Calibration
         dec5 = self.encoder10(outs[3])
+        print(f'Encoder output shapes: enc0:{enc0.shape}, enc1:{enc1.shape}, enc2:{enc2.shape}, enc3:{enc3.shape}, dec5:{dec5.shape}')
 
         # Decoder
         dec4 = self.decoder4(dec5, enc3, outs_hf[-1])
