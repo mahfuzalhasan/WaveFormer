@@ -333,6 +333,22 @@ def parse_arguments() -> argparse.Namespace:
         default="default_split",
         help="Data split path"
     )
+
+    # user can use single gpu for prediction
+    parser.add_argument(
+        "--num_gpus", 
+        type=int, 
+        default=1,
+        help="Number of GPUs to use for prediction"
+    )
+
+    # user can evaluate on a different model
+    parser.add_argument(
+        "--model_name", 
+        type=str, 
+        default="multiscale_attention",
+        help="Name of the model to be used for prediction"
+    )
     
     return parser.parse_args()
 
@@ -348,6 +364,11 @@ def main():
     # Override split path if provided
     if args.split_path:
         config['split_path'] = args.split_path
+    # Override model name if provided
+    if args.model_name:
+        config['model_name'] = args.model_name
+    if args.num_gpus:
+        config['num_gpus'] = args.num_gpus
     
     # Create predictor
     predictor = BraTSPredictor(config, args)
