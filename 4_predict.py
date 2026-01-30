@@ -334,6 +334,14 @@ def parse_arguments() -> argparse.Namespace:
         help="Data split path"
     )
 
+    # environment for prediction
+    parser.add_argument(
+        "--env", 
+        type=str, 
+        default="pytorch",
+        help="Environment to use for prediction"
+    )
+
     # user can use single gpu for prediction
     parser.add_argument(
         "--num_gpus", 
@@ -361,12 +369,16 @@ def main():
     # Load configuration --> user can load custom config file for prediction
     config = load_config(args.config)
 
+    # Override environment if provided
+    if args.env:
+        config['env'] = args.env
     # Override split path if provided
     if args.split_path:
         config['split_path'] = args.split_path
     # Override model name if provided
     if args.model_name:
         config['model_name'] = args.model_name
+    # Override number of GPUs if provided
     if args.num_gpus:
         config['num_gpus'] = args.num_gpus
     
