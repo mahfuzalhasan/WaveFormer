@@ -21,5 +21,5 @@ conda activate miccai
 cd /blue/brain-lab/mdmahfuzalhasan/scripts/WaveFormer
 
 # Execute the Python script
-python 5_compute_metrices.py
+python 5_compute_metrics.py
 date
