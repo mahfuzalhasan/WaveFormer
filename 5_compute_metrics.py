@@ -25,7 +25,7 @@ def each_cases_metric(gt, pred, voxel_spacing):
     class_wise_metric = np.zeros((classes_num, 2))
     for cls in range(0, classes_num):
         class_wise_metric[cls, ...] = cal_metric(pred[cls], gt[cls], voxel_spacing)
-    print(class_wise_metric)
+    
     return class_wise_metric
 
 def convert_labels(labels):
@@ -46,7 +46,8 @@ if __name__ == "__main__":
     model_name = config.model_name
     split_path = config.split_path
     _, _, test_ds = get_train_val_test_loader_from_train(data_dir, data_list_path, split_path, test=True)
-
+    print(f'$$$$$$$$ evaluation on {len(test_ds)} cases for model:{model_name} $$$$$$$ \n\n')
+    
     all_results = np.zeros((250,3,2))
 
     ind = 0
@@ -64,13 +65,14 @@ if __name__ == "__main__":
         pred_array = sitk.GetArrayFromImage(pred_itk)
 
         m = each_cases_metric(gt_array, pred_array, voxel_spacing)
+        print(f'case name: {case_name}, class wise metric: {m}\n\n')
 
         all_results[ind, ...] = m
     
         ind += 1
 
     result_file_path = f"./{results_root}/result_metrics/{model_name}"
-
+    print(f'#########################################################\n\n')
     print(f"Saving results to {result_file_path}")
     os.makedirs(result_file_path, exist_ok=True)
     np.save(os.path.join(result_file_path, f'{model_name}.npy'), all_results) 
