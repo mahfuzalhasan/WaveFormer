@@ -354,7 +354,7 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument(
         "--model_name", 
         type=str, 
-        default="multiscale_attention",
+        default="multiscale_attention_2x2",
         help="Name of the model to be used for prediction"
     )
     
